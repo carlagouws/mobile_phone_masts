@@ -20,5 +20,5 @@ This file contains un-normalised data (such as multiple variations of Tenant Nam
 - "total rent for all items" in a list is the sum of the current rent for all the items
 
 ## To run:
-- change your csv name to "dataset.csv" and place in folder
+- change your csv name to "dataset.csv" and copy to the mobile_phone_masts directory
 - run 'main.py'
