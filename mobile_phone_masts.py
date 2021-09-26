@@ -29,12 +29,21 @@ class MobilePhoneMasts:
             self.data = [self._correct_datatypes(row) for row in reader]
 
     def sorted_by_current_rent(self):
-        sorted_data = sorted(self.data, key=itemgetter(-1))
+        sorted_list = sorted(self.data, key=itemgetter(-1))
+        sorted_list.insert(0, self.headers)
+        return sorted_list
+
+    def lease_years_of_25(self):
+        valid_tenants = [row for row in self.data if row[-2] == 25]
+        valid_tenants.insert(0, self.headers)
+        return valid_tenants
+
+    def total_rent(self, tenants):
+        total_rent = 0.0
+        for row in tenants:
+            if isinstance(row[-1], str):
+                continue
+            total_rent += row[-1]
+        return total_rent
 
 
-def main():
-    data_list = MobilePhoneMasts("dataset.csv")
-    data_list.sorted_by_current_rent()
-
-
-main()

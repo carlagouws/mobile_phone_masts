@@ -88,4 +88,45 @@ class TestMobilePhoneMast(unittest.TestCase):
         self.assertEqual(result.headers, expected_headers)
         self.assertEqual(result.data, expected_data)
 
-    # def test_sorted_by_current_rent(self):
+    def test_sorted_by_current_rent(self):
+        expected_result = ["Current Rent", 6600.0, 12750.0, 14730.08, 15296.63, 23950.0]
+        result = [
+            i[-1] for i in MobilePhoneMasts("test_dataset.csv").sorted_by_current_rent()
+        ]
+        self.assertEqual(result, expected_result)
+
+    def test_lease_years_of_25(self):
+        expected_result = [
+            [
+                "Property Name",
+                "Property Address [1]",
+                "Property  Address [2]",
+                "Property Address [3]",
+                "Property Address [4]",
+                "Unit Name",
+                "Tenant Name",
+                "Lease Start Date",
+                "Lease End Date",
+                "Lease Years",
+                "Current Rent",
+            ],
+            [
+                "Grayson Heights",
+                "Eden Mount",
+                "Burley Park",
+                "Leeds",
+                "LS5",
+                "Grayson Heights LDS175   LS0029",
+                "Everything Everywhere Ltd&Hutchison 3G UK Ltd",
+                dt.date(2009, 8, 1),
+                dt.date(2019, 7, 31),
+                25,
+                14730.08,
+            ],
+        ]
+        result = MobilePhoneMasts("test_dataset.csv").lease_years_of_25()
+        self.assertEqual(result, expected_result)
+
+    def test_total_rent(self):
+        tenants = MobilePhoneMasts("test_dataset.csv")
+        self.assertEqual(tenants.total_rent(tenants.data), 73326.71)
