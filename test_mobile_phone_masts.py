@@ -184,6 +184,14 @@ class TestMobilePhoneMast(unittest.TestCase):
             {"Arqiva Ltd": 2, "Everything Everywhere Ltd&Hutchison 3G UK Ltd": 3},
         )
 
+    def test_get_close_tenant_name_matches_multiple(self):
+        # TODO this needs fixing
+        expected_result = {
+            'Everything Everywhere Ltd': 21
+        }
+        result = MobilePhoneMasts("test_tenant_matches.csv").count_number_masts_per_tenant()
+        self.assertEqual(result, expected_result)
+
     def test_get_date_range(self):
         expected_result = [
             dt.date(2021, 5, 1),
